@@ -1,0 +1,50 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+<div class="row mt-4">
+    <div class="col">
+        <h2>Add Todo</h2>
+        <form class="form-inline" method="post" action="{% url 'todo:todo-add' %}">
+            {% csrf_token %}
+            <input type="text" name="content" style="width: 25rem;" class="form-control mb-2 mr-sm-2"
+                placeholder="add item" required>
+            <button type="submit" class="btn btn-primary mb-2">Add</button>
+        </form>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col">
+        <ul class="list-group">
+            {% for todo in todos %}
+
+            <a href="{%url 'todo:change-status' todo.id%}">
+                <li class="list-group-item">
+                    <strong>
+                        {% if todo.is_done %}
+                        <h4 class="card-text float-left"
+                            style="text-decoration: line-through; color: rgb(138, 159, 194);">
+                            {{todo.text}}</h4>
+                        {% else %}
+                        <h4 class="card-text float-left">{{ todo.text}}</h4>
+                        {% endif %}
+                    </strong>
+                    <div class="float-right">
+                        <form action="{% url 'todo:todo-delete' todo.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+
+                    </div>
+                    <a class="btn btn-sm btn-warning float-right mr-2" href="{%url 'todo:todo-edit' todo.id%}">
+                        Edit
+                    </a>
+                    <span class="d-flex w-100 justify-content-between">{{ todo.added_date }}</span>
+                </li>
+            </a>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}

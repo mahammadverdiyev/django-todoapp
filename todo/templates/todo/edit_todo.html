@@ -1,0 +1,17 @@
+{%extends 'todo/base.html' %}
+
+
+{% block content %}
+
+<div class="row mt-4">
+    <div class="col">
+        <h2>Edit Todo</h2>
+        <form class="form-inline" method="post" action="{% url 'todo:todo-edit' todo.id %}">
+            {% csrf_token %}
+            <input type="text" name="content" class="form-control mb-2 mr-sm-2" value="{{todo.text}}" required>
+            <button type="submit" class="btn btn-primary mb-2">Edit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
