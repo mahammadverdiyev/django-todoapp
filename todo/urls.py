@@ -4,10 +4,12 @@ from . import views
 app_name = 'todo'
 
 urlpatterns = [
-    path('', views.home, name='todo-home'),
-    path('add_todo/', views.add_todo, name='todo-add'),
-    path('delete_todo/<int:todo_id>/', views.delete_todo, name='todo-delete'),
-    path('edit_todo/<int:todo_id>/', views.edit_todo, name='todo-edit'),
-    path('change_status/<int:todo_id>/',
-         views.change_status, name='change-status')
+    path('', views.HomeView.as_view(), name='todo-home'),
+    path('add_todo/', views.AddTodoView.as_view(), name='todo-add'),
+    path('delete_todo/<int:pk>/', views.DeleteTodoView.as_view(), name='todo-delete'),
+    path('edit_todo/<int:pk>/',
+         views.EditTodoView.as_view(), name='todo-edit'),
+    path('change_status/<int:pk>/',
+         views.ChangeStatusView.as_view(), name='change-status'),
+    path('search/', views.SearchedTodoView.as_view(), name='search')
 ]
